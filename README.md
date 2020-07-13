@@ -1,5 +1,5 @@
 ![image](https://user-images.githubusercontent.com/487999/79708354-29074a80-82fa-11ea-80df-0db3962fb453.png)
-
+![image](https://user-images.githubusercontent.com/65518795/87262750-12861f00-c4f6-11ea-9ae5-14b7f1175e53.png)
 # 예제 - 도서 대여 시스템
 
 본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다.
