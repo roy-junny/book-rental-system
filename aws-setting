@@ -1,10 +1,19 @@
 0. Docker 
   1) docker login
-  2) docker build --tag isy1293/rental-user :v1 .
+  2) docker build --tag isy1293/teamb-user :v1 .
   3) /*docker push*/
-  docker push isy1293/rental-user:v1
+  docker push isy1293/teamb-user:v1
   4) hub.docker.com에서 확인
+  
 1. IAM 셋팅
 1) accessKey
 AKIAQYU2ROSK72NL4JTD Mv0hF6bX1etoAtfxFsD0w7qKF+LfoNnxNFjVJJe1
+2) region : us-east-2
+3) registry 생성
+4) registry 로그인
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user
 
+3. Docker image 를 registry에 push
+  docker build -t teamb-user . 
+  docker tag teamb-user:latest 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user:latest
+  docker push 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user :latest
