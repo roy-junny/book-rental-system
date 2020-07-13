@@ -766,7 +766,7 @@ Concurrency:		       96.02
 
 ```
 배포기간중 Availability 가 평소 100%에서 70% 대로 떨어지는 것을 확인. 원인은 쿠버네티스가 성급하게 새로 올려진 서비스를 READY 상태로 인식하여 서비스 유입을 진행한 것이기 때문. 이를 막기위해 Readiness Probe 를 설정함:
-
+- readiness probe를 적용하지 않고 테스트해서 무정지재배포가 안되는 것을 확인 후에 다시 설정하여 무정지재배포가 되는지 확인.
 ```
 # deployment.yaml 의 readiness probe 의 설정:
 
@@ -791,6 +791,7 @@ Concurrency:		       96.02
 
 
 # 신규 개발 조직의 추가
+( 개인 프로젝트할 때 하면 된다...)
 
   ![image](https://user-images.githubusercontent.com/487999/79684133-1d6c4300-826a-11ea-94a2-602e61814ebf.png)
 
