@@ -56,6 +56,10 @@ kubectl expose deploy teamb-user --type=ClusterIP --port=8082
   2) docker build --tag isy1293/gateway:v1 .
   3) /*docker push*/
   docker push isy1293/gateway:v1
+  
+  (docker file add)
+  buildspec.yml 복사하여 각 프로젝트에 붙여넣기
+
 
 Docker image 를 registry에 push
   docker build -t gateway .
@@ -67,3 +71,11 @@ Docker image 를 registry에 push
 gateway 올리기
   kubectl create deploy teamb-gateway --image="052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-gateway:latest"
 kubectl expose deploy teamb-gateway --type=LoadBalancer --port=8080
+
+
+
+////////////
+
+codeBuild
+
+cat <<EOF|kubectl apply -f -apiVersion: v1 kind: ServiceAccount metadata: name: eks-admin namespace: kube-system EOF
