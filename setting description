@@ -1,3 +1,4 @@
+
 **pom.xml에서 mvn 프로젝트로 만들기**
 
 ** local running **
@@ -45,7 +46,24 @@ kubectl create deploy teamb-user --image="052937454741.dkr.ecr.us-east-2.amazona
 //kubectl exec -it teamb-user-749f68f97c-hml5t -- /bin/bash
 
 cluster 외부 노출 /*user는 8082*/
-kubectl expose deploy teamb-Cluster --type=ClusterIP --port=8082 
-
+kubectl expose deploy teamb-user --type=ClusterIP --port=8082 
+  
 
 6. gateway deploy
+ 
+1) jar만들어서 push
+ 1) docker login
+  2) docker build --tag isy1293/gateway:v1 .
+  3) /*docker push*/
+  docker push isy1293/gateway:v1
+
+Docker image 를 registry에 push
+  docker build -t gateway .
+  kubectl create deploy teamb-gateway --image=isy1293/gateway:v1
+
+  docker tag gateway:latest 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-gateway:latest
+  docker push 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-gateway:latest
+
+gateway 올리기
+  kubectl create deploy teamb-gateway --image="052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-gateway:latest"
+kubectl expose deploy teamb-gateway --type=LoadBalancer --port=8080
