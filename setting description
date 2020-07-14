@@ -1,0 +1,33 @@
+0. Docker 
+  1) docker login
+  2) docker build --tag isy1293/teamb-user :v1 .
+  3) /*docker push*/
+  docker push isy1293/teamb-user:v1
+  4) hub.docker.com에서 확인
+  
+1. IAM 셋팅
+1) accessKey...... 개별 확인
+2) region : us-east-2
+3) registry 생성
+4) registry 로그인
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user
+
+3. Docker image 를 registry에 push
+  docker build -t teamb-user . 
+  docker tag teamb-user:latest 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user:latest
+  docker push 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user :latest
+
+4. eksctl로 cluster 생성
+eksctl create cluster --name teamb-Cluster --version 1.15 --nodegroup-name standard-workers --node-type t3.medium --nodes 2 --nodes-min 1 --nodes-max 3
+aws eks --region us-east-2 update-kubeconfig --name teamb-Cluster
+kubectl config current-context
+kubectl get all
+
+Local에 ECR(Elastic Container Registry) 인증 및 토큰 설정
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user
+
+5. deploy
+kubectl create deploy teamb-user --image="052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user:latest"
+kubectl run teamb-user --image="052937454741.dkr.ecr.us-east-2.amazonaws.com/teamb-user:latest"
+
+kubectl logs teamb-user -f
